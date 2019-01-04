@@ -1,0 +1,1 @@
+This POC is based on drawing rect behind of text

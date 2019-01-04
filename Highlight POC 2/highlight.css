@@ -1,0 +1,33 @@
+
+html {
+    //-webkit-text-size-adjust: none; /* Never autoresize text */
+    margin: 0 !important;
+    padding: 0 0 !important;
+    //border: 1px solid #F00;
+    overflow: scroll;
+}
+
+body {
+    margin: 0 !important;
+    padding: 20px 20px !important;
+    //overflow: !important;
+    //border: 1px solid #0F0;
+    //column-rule: 1px dotted #FF0;
+}
+
+.highlight-yellow {
+    background: yellow;
+}
+
+.highlight-green {
+    background-color: #00FF00;
+}
+
+.highlight-green-alpha {
+    background-color: #00FF0088;
+}
+
+.svg-highlight-green {
+    fill: #00FF00;
+}
+
