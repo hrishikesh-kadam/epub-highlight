@@ -138,6 +138,7 @@ function createHighlightSvgElement() {
 
     var svgElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svgElement.setAttribute("id", "svg-highlight");
+    svgElement.setAttribute("class", "svg-highlight");
     svgElement.style.position = "absolute";
     svgElement.style.left = appendPx(0);
     svgElement.style.top = appendPx(0);

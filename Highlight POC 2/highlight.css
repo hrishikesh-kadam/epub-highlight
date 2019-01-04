@@ -27,6 +27,10 @@ body {
     background-color: #00FF0088;
 }
 
+.svg-highlight {
+    fill: #FFFFFF00;
+}
+
 .svg-highlight-green {
     fill: #00FF00;
 }
