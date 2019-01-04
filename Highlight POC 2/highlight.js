@@ -139,11 +139,11 @@ function createHighlightSvgElement() {
     var svgElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svgElement.setAttribute("id", "svg-highlight");
     svgElement.style.position = "absolute";
-    svgElement.style.left = "0";
-    svgElement.style.top = "0";
+    svgElement.style.left = appendPx(0);
+    svgElement.style.top = appendPx(0);
     svgElement.style.zIndex = "-1";
-    svgElement.style.width = document.scrollingElement.scrollWidth.toString();
-    svgElement.style.height = document.scrollingElement.scrollHeight.toString();
+    svgElement.style.width = appendPx(document.scrollingElement.scrollWidth);
+    svgElement.style.height = appendPx(document.scrollingElement.scrollHeight);
     return svgElement;
 }
 
@@ -164,10 +164,10 @@ function createRectElement(rect) {
     var rectElement = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
     var translatedX = rect.x + document.scrollingElement.scrollLeft;
     var translatedY = rect.y + document.scrollingElement.scrollTop;
-    rectElement.setAttribute("x", translatedX.toString());
-    rectElement.setAttribute("y", translatedY.toString());
-    rectElement.setAttribute("width", rect.width.toString());
-    rectElement.setAttribute("height", rect.height.toString());
+    rectElement.setAttribute("x", appendPx(translatedX));
+    rectElement.setAttribute("y", appendPx(translatedY));
+    rectElement.setAttribute("width", appendPx(rect.width));
+    rectElement.setAttribute("height", appendPx(rect.height));
     return rectElement;
 }
 
@@ -228,8 +228,8 @@ function preInitHorizontalDirection() {
     //document.documentElement.clientHeight is window.innerHeight excluding y scrollbar height
     var pageHeight = document.documentElement.clientHeight - (paddingTop + paddingBottom);
 
-    bodyElement.style.webkitColumnGap = (paddingLeft + paddingRight) + 'px';
-    bodyElement.style.webkitColumnWidth = pageWidth + 'px';
+    bodyElement.style.columnGap = (paddingLeft + paddingRight) + 'px';
+    bodyElement.style.columnWidth = pageWidth + 'px';
     bodyElement.style.columnFill = 'auto';
 
     //console.log("-> window.innerWidth = " + window.innerWidth);
@@ -282,4 +282,8 @@ function postInitHorizontalDirection() {
     //console.log("-> pageCount = " + pageCount);
 
     //FolioPageFragment.setHorizontalPageCount(pageCount);
+}
+
+function appendPx(dim) {
+    return dim + "px";
 }
