@@ -23,6 +23,10 @@ var onKeyPressed = function (e) {
             initHorizontalDirection();
             break;
 
+        case "d":
+            deleteClickedHighlight();
+            break;
+
         case "1":
             test1();
             break;
@@ -88,18 +92,22 @@ function getSelectionCfi() {
 
 function onClickHtml(event) {
     console.debug("-> onClickHtml");
+    Highlight.clickedHighlight = null;
 
     if (FolioWebView.isPopupShowing()) {
         FolioWebView.dismissPopupWindow();
         return;
     }
 
-    var groupElement = onClickHighlight(event);
+    var groupElement = anyHighlightClicked(event);
     if (groupElement === null) {
         FolioWebView.toggleSystemUI();
         return;
+    } else {
+        console.debug("-> onClickHtml -> Following highlight clicked");
+        console.debug(groupElement);
+        Highlight.clickedHighlight = groupElement;
+        console.log(window);
+        return;
     }
-
-    console.debug("-> onClickHtml -> Following highlight clicked");
-    console.debug(groupElement);
 }

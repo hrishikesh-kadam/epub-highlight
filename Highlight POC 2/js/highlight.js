@@ -1,3 +1,7 @@
+var Highlight = {
+    clickedHighlight: null
+};
+
 function highlight() {
     console.log("-> highlight");
 
@@ -92,14 +96,14 @@ function createRectElement(rect) {
  * @param {MouseEvent} event
  * @return {SVGGElement | null}
  */
-function onClickHighlight(event) {
-    console.log("-> onClickHighlight");
+function anyHighlightClicked(event) {
+    console.log("-> anyHighlightClicked");
     console.debug(event);
 
     var highlightSvgElement = getHighlightSvgElement();
     var groupCollection = highlightSvgElement.children;
 
-    for (var i = 0; i < groupCollection.length; i++) {
+    for (var i = groupCollection.length - 1; i >= 0; i--) {
 
         var groupElement = groupCollection[i];
         var clickInsideGroupElement = isClickInsideElement(event, groupElement);
@@ -118,4 +122,16 @@ function onClickHighlight(event) {
     }
 
     return null;
+}
+
+function deleteClickedHighlight() {
+    console.debug("-> deleteClickedHighlight");
+
+    if (Highlight.clickedHighlight == null) {
+        return;
+    }
+
+    var highlightSvgElement = getHighlightSvgElement();
+    highlightSvgElement.removeChild(Highlight.clickedHighlight);
+    Highlight.clickedHighlight = null;
 }
