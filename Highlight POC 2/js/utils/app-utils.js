@@ -1,3 +1,7 @@
+/**
+ * @param {(number|string)} dim
+ * @return {string}
+ */
 function appendPx(dim) {
     return dim + "px";
 }

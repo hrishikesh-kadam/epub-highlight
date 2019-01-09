@@ -19,6 +19,10 @@ var onKeyPressed = function (e) {
             highlight();
             break;
 
+        case "u":
+            underlinedHighlight();
+            break;
+
         case "a":
             initHorizontalDirection();
             break;
