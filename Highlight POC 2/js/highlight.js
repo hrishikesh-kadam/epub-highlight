@@ -58,10 +58,8 @@ function underlinedHighlight() {
 
     for (var i = 0; i < rectList.length; i++) {
         var rect = rectList[i];
-        var rectElement = createRectElement(rect);
+        var rectElement = createRectElementForUnderline(rect, "svg-highlight-underline-red");
         groupElement.appendChild(rectElement);
-        var lineElement = createLineElement(rectElement);
-        groupElement.appendChild(lineElement);
     }
 
     svgElement.appendChild(groupElement);
@@ -131,6 +129,36 @@ function createRectElement(rect, className) {
 }
 
 /**
+ * @param {DOMRect} rect
+ * @param {string} className
+ * @returns {SVGRectElement}
+ */
+function createRectElementForUnderline(rect, className) {
+
+    var rectElement = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    if (className !== undefined) {
+        rectElement.setAttribute("class", className);
+    }
+    // TODO -> try to get stroke-width from css in js
+    var strokeWidth = 2;
+    var halfStrokeWidth = strokeWidth / 2;
+
+    var translatedX = rect.x + document.scrollingElement.scrollLeft + halfStrokeWidth;
+    var translatedY = rect.y + document.scrollingElement.scrollTop + halfStrokeWidth;
+    rectElement.setAttribute("x", appendPx(translatedX));
+    rectElement.setAttribute("y", appendPx(translatedY));
+    var newWidth = (rect.width - strokeWidth);
+    rectElement.setAttribute("width", appendPx(newWidth));
+    rectElement.setAttribute("height", appendPx(rect.height));
+
+    var strokeDasharray = "0, " + (newWidth + rect.height - halfStrokeWidth)
+        + ", " + rect.width + ", " + rect.height;
+    rectElement.style.strokeDasharray = strokeDasharray;
+
+    return rectElement;
+}
+
+/**
  * @param {SVGRectElement} rectElement
  * @return {SVGLineElement}
  */
@@ -166,12 +194,12 @@ function anyHighlightClicked(event) {
         var clickInsideGroupElement = isClickInsideElement(event, groupElement);
         if (clickInsideGroupElement) {
 
-            var svgElementCollection = groupElement.children;
-            for (var j = 0; j < svgElementCollection.length; j++) {
+            var rectElementCollection = groupElement.children;
+            for (var j = 0; j < rectElementCollection.length; j++) {
 
-                var svgElement = svgElementCollection[j];
-                var clickInsideSvgElement = isClickInsideElement(event, svgElement);
-                if (clickInsideSvgElement) {
+                var rectElement = rectElementCollection[j];
+                var clickInsideRectElement = isClickInsideElement(event, rectElement);
+                if (clickInsideRectElement) {
                     return groupElement;
                 }
             }
